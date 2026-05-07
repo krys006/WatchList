@@ -288,8 +288,8 @@
         }
 
         /* =============================================
-       NAV
-    ============================================= */
+   NAV
+============================================= */
         nav {
             background: rgba(4, 8, 15, 0.96);
             backdrop-filter: blur(12px);
@@ -297,7 +297,6 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            position: relative;
         }
 
         nav::after {
@@ -310,6 +309,61 @@
             background: linear-gradient(90deg, transparent, var(--cyan), transparent);
         }
 
+        /* Top bar with logo + hamburger */
+        .nav-inner {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+        }
+
+        .nav-logo {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--cyan-bright);
+            letter-spacing: 4px;
+        }
+
+        /* Hamburger button */
+        .hamburger {
+            background: none;
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            padding: 8px 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .hamburger:hover {
+            border-color: var(--cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--cyan);
+            transition: var(--transition);
+        }
+
+        /* Hamburger → X animation */
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Nav menu */
         nav ul {
             list-style: none;
             display: flex;
@@ -359,6 +413,47 @@
 
         nav ul li a:hover::before {
             transform: translateX(-50%) scaleX(1);
+        }
+
+        /* =============================================
+   MOBILE NAV
+============================================= */
+        @media (max-width: 768px) {
+            .nav-inner {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                border-top: 1px solid rgba(0, 180, 216, 0.15);
+                animation: fadeUp 0.3s ease;
+            }
+
+            nav ul.open {
+                display: flex;
+            }
+
+            nav ul li {
+                width: 100%;
+                border-bottom: 1px solid rgba(0, 180, 216, 0.07);
+            }
+
+            nav ul li a {
+                padding: 14px 20px;
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            nav ul li a::before {
+                display: none;
+            }
+
+            nav ul li a:hover {
+                background: rgba(0, 180, 216, 0.05);
+                padding-left: 28px;
+            }
         }
 
         /* =============================================
@@ -1358,13 +1453,22 @@
     </audio>
 
     <!-- ===== NAV ===== -->
+    <!-- ===== NAV ===== -->
     <nav>
-        <ul>
-            <li><a href="#about"><span class="nav-num">01.</span> About</a></li>
-            <li><a href="#top-picks"><span class="nav-num">02.</span> Top Picks</a></li>
-            <li><a href="#gallery"><span class="nav-num">03.</span> Gallery</a></li>
-            <li><a href="#trivia"><span class="nav-num">04.</span> Trivia</a></li>
-            <li><a href="#reviews"><span class="nav-num">05.</span> Reviews</a></li>
+        <div class="nav-inner">
+            <span class="nav-logo">// MW!</span>
+            <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <ul id="nav-menu">
+            <li><a href="#about" onclick="closeMenu()"><span class="nav-num">01.</span> About</a></li>
+            <li><a href="#top-picks" onclick="closeMenu()"><span class="nav-num">02.</span> Top Picks</a></li>
+            <li><a href="#gallery" onclick="closeMenu()"><span class="nav-num">03.</span> Gallery</a></li>
+            <li><a href="#trivia" onclick="closeMenu()"><span class="nav-num">04.</span> Trivia</a></li>
+            <li><a href="#reviews" onclick="closeMenu()"><span class="nav-num">05.</span> Reviews</a></li>
         </ul>
     </nav>
 
@@ -1654,6 +1758,28 @@
 
     <!-- ===== JAVASCRIPT ===== -->
     <script>
+
+        // =============================================
+        // HAMBURGER MENU
+        // =============================================
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            const btn = document.getElementById('hamburger');
+            menu.classList.toggle('open');
+            btn.classList.toggle('open');
+        }
+
+        function closeMenu() {
+            document.getElementById('nav-menu').classList.remove('open');
+            document.getElementById('hamburger').classList.remove('open');
+        }
+
+        // Close menu if user clicks outside nav
+        document.addEventListener('click', function (e) {
+            const nav = document.querySelector('nav');
+            if (!nav.contains(e.target)) closeMenu();
+        });
+
 
 
         // =============================================
