@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Must Watch! — A curated entertainment showcase featuring the best movies, K-dramas, C-dramas, and TV series handpicked by Krystal Camille Besana." />
+    <title>Must Watch! | Movies, Dramas & Series</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+
+    <style>
+        #modal-img {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            object-position: center top;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 180, 216, 0.3);
+            filter: brightness(0.9) contrast(1.05);
+        }
+
+
+
+
+        /* =============================================
+       CSS CUSTOM PROPERTIES
+    ============================================= */
+        :root {
+            --navy: #04080f;
+            --navy-mid: #070d1a;
+            --navy-card: #0b1221;
+            --navy-panel: #0d1528;
+            --blue-dim: #0f2044;
+            --blue: #1565c0;
+            --blue-bright: #1e88e5;
+            --cyan: #00b4d8;
+            --cyan-bright: #00e5ff;
+            --velvet: #1a0a3d;
+            --velvet-mid: #2d1b69;
+            --velvet-bright: #6c3fc5;
+            --white: #e8f0fe;
+            --white-dim: #8fa8c8;
+            --white-mute: #3d5a80;
+            --red-alert: #e53935;
+            --gold: #ffd600;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-ui: 'Rajdhani', sans-serif;
+            --font-mono: 'Share Tech Mono', monospace;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --glow-cyan: 0 0 20px rgba(0, 229, 255, 0.4);
+            --glow-blue: 0 0 30px rgba(30, 136, 229, 0.3);
+        }
+
+        /* =============================================
+       RESET & BASE
+    ============================================= */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--navy);
+            color: var(--white);
+            font-family: var(--font-ui);
+            font-size: 16px;
+            line-height: 1.7;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 180, 216, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 180, 216, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* =============================================
+       SCROLLBAR
+    ============================================= */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--navy);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--cyan);
+        }
+
+        /* =============================================
+       PERSONA UI PANEL MIXIN
+       Corner-bracket style panels
+    ============================================= */
+        .p3-panel {
+            position: relative;
+            background: var(--navy-card);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            padding: 28px 32px;
+        }
+
+        .p3-panel::before,
+        .p3-panel::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: var(--cyan);
+            border-style: solid;
+        }
+
+        .p3-panel::before {
+            top: -1px;
+            left: -1px;
+            border-width: 2px 0 0 2px;
+        }
+
+        .p3-panel::after {
+            bottom: -1px;
+            right: -1px;
+            border-width: 0 2px 2px 0;
+        }
+
+        /* =============================================
+       HEADER
+    ============================================= */
+        header {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, rgba(10, 8, 30, 0.6) 0%, rgba(4, 8, 15, 0.85) 100%),
+                url('header-bg.jpeg') center/cover no-repeat;
+            padding: 60px 20px 80px;
+            text-align: center;
+            z-index: 1;
+        }
+
+
+        /* Clock ring behind title */
+        header::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 180, 216, 0.08);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation: clockSpin 30s linear infinite;
+            box-shadow: inset 0 0 80px rgba(0, 100, 200, 0.05);
+        }
+
+        @keyframes clockSpin {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Ink splatter SVG decoration */
+        .ink-splat {
+            position: absolute;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+
+        .ink-splat-left {
+            left: -40px;
+            bottom: 0;
+            width: 300px;
+        }
+
+        .ink-splat-right {
+            right: -40px;
+            top: 0;
+            width: 250px;
+            transform: scaleX(-1) rotate(30deg);
+        }
+
+        .header-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--cyan);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        header h1 {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 12vw, 8rem);
+            line-height: 0.9;
+            letter-spacing: 4px;
+            color: var(--white);
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 40px rgba(0, 229, 255, 0.3);
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+
+        header h1 .accent {
+            color: var(--cyan-bright);
+            text-shadow: var(--glow-cyan);
+            display: block;
+        }
+
+        header h1 .exclaim {
+            color: var(--red-alert);
+        }
+
+        .header-slash {
+            display: inline-block;
+            width: 60px;
+            height: 3px;
+            background: var(--cyan);
+            margin: 0 12px;
+            vertical-align: middle;
+            box-shadow: var(--glow-cyan);
+        }
+
+        .tagline {
+            font-family: var(--font-ui);
+            font-size: 0.95rem;
+            color: var(--white-dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.6s forwards;
+        }
+
+        /* Diagonal bottom clip */
+        .header-clip {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--navy);
+            clip-path: polygon(0 100%, 100% 0, 100% 100%);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =============================================
+       NAV
+    ============================================= */
+        nav {
+            background: rgba(4, 8, 15, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 180, 216, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            position: relative;
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        nav ul li a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 16px 20px;
+            color: var(--white-dim);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a .nav-num {
+            color: var(--cyan);
+            font-size: 0.65rem;
+            opacity: 0.6;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 80%;
+            height: 2px;
+            background: var(--cyan-bright);
+            box-shadow: var(--glow-cyan);
+            transition: transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--cyan-bright);
+        }
+
+        nav ul li a:hover::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        /* =============================================
+       MAIN
+    ============================================= */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px 100px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* =============================================
+       SECTION HEADERS — Persona slash style
+    ============================================= */
+        section {
+            margin-bottom: 100px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .section-num {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--cyan);
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--white);
+            letter-spacing: 3px;
+            line-height: 1;
+            position: relative;
+        }
+
+        .section-title .title-accent {
+            color: var(--cyan-bright);
+            text-shadow: var(--glow-cyan);
+        }
+
+        /* Angled underline */
+        .section-rule {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            margin-top: 8px;
+        }
+
+        .section-rule::before {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 40px;
+            background: var(--cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .section-rule span {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--white-mute);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-rule::after {
+            content: '';
+            display: block;
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, rgba(0, 180, 216, 0.3), transparent);
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 180, 216, 0.2), transparent);
+            margin: 60px 0;
+        }
+
+        /* =============================================
+       TYPOGRAPHY
+    ============================================= */
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            color: var(--white);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        h3 {
+            font-family: var(--font-ui);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        p {
+            color: var(--white-dim);
+            font-size: 1rem;
+            margin-bottom: 14px;
+            font-weight: 400;
+        }
+
+        strong {
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        em {
+            color: var(--cyan);
+            font-style: italic;
+        }
+
+        mark {
+            background: rgba(0, 229, 255, 0.15);
+            color: var(--cyan-bright);
+            padding: 1px 6px;
+            border-radius: 2px;
+            font-style: normal;
+        }
+
+        abbr {
+            border-bottom: 1px dotted var(--cyan);
+            cursor: help;
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        /* =============================================
+       ARTICLE — Persona UI card
+    ============================================= */
+        article {
+            position: relative;
+            background: var(--navy-card);
+            border: 1px solid rgba(0, 180, 216, 0.15);
+            padding: 30px 34px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        /* Top colored stripe */
+        article::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue-bright), var(--cyan), transparent);
+        }
+
+        /* Corner accent */
+        article::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 24px 24px;
+            border-color: transparent transparent rgba(0, 180, 216, 0.3) transparent;
+        }
+
+        /* =============================================
+       ASIDE — Velvet Room panel
+    ============================================= */
+        aside {
+            position: relative;
+            background: linear-gradient(135deg, var(--velvet) 0%, var(--navy-panel) 100%);
+            border: 1px solid rgba(108, 63, 197, 0.4);
+            border-left: 3px solid var(--velvet-bright);
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        aside::before {
+            content: 'VELVET ROOM';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--velvet-bright);
+            letter-spacing: 3px;
+            opacity: 0.5;
+        }
+
+        aside h3 {
+            color: var(--velvet-bright);
+        }
+
+        /* =============================================
+       BLOCKQUOTE — Persona speech bubble style
+    ============================================= */
+        blockquote {
+            position: relative;
+            background: linear-gradient(135deg, var(--blue-dim) 0%, var(--navy-panel) 100%);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            border-left: 4px solid var(--cyan-bright);
+            padding: 30px 36px;
+            margin: 36px 0;
+            overflow: hidden;
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+        }
+
+        blockquote::before {
+            content: '"';
+            font-family: var(--font-display);
+            font-size: 8rem;
+            color: var(--cyan);
+            opacity: 0.08;
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            line-height: 1;
+        }
+
+        blockquote p,
+        blockquote {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--white);
+            letter-spacing: 2px;
+            line-height: 1.3;
+            margin-bottom: 0;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+        }
+
+        blockquote cite {
+            display: block;
+            margin-top: 14px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* =============================================
+       LISTS
+    ============================================= */
+        ol {
+            color: var(--white-dim);
+            padding-left: 0;
+            list-style: none;
+            counter-reset: p3counter;
+            margin-bottom: 20px;
+        }
+
+        ol li {
+            counter-increment: p3counter;
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 180, 216, 0.07);
+            font-size: 0.97rem;
+        }
+
+        ol li::before {
+            content: counter(p3counter, decimal-leading-zero);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--cyan);
+            min-width: 28px;
+            opacity: 0.8;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            color: var(--white-dim);
+            padding: 8px 0 8px 20px;
+            border-bottom: 1px solid rgba(0, 180, 216, 0.06);
+            font-size: 0.97rem;
+            position: relative;
+        }
+
+        ul li::before {
+            content: '▸';
+            color: var(--cyan-bright);
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        /* =============================================
+       DESCRIPTION LIST
+    ============================================= */
+        dl {
+            margin-bottom: 20px;
+        }
+
+        dt {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--cyan-bright);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        dt::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 180, 216, 0.2);
+        }
+
+        dd {
+            color: var(--white-dim);
+            font-size: 0.93rem;
+            padding: 8px 0 8px 16px;
+            border-left: 2px solid rgba(0, 180, 216, 0.15);
+            margin-left: 4px;
+            margin-top: 6px;
+        }
+
+        /* =============================================
+       GALLERY
+    ============================================= */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .movie-card {
+            position: relative;
+            background: var(--navy-card);
+            border: 1px solid rgba(0, 180, 216, 0.15);
+            cursor: pointer;
+            transition: var(--transition);
+            overflow: hidden;
+            clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+        }
+
+        /* Corner cut marker */
+        .movie-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 16px 16px 0;
+            border-color: transparent var(--cyan) transparent transparent;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .movie-card:hover {
+            border-color: var(--cyan);
+            box-shadow: var(--glow-cyan), inset 0 0 30px rgba(0, 180, 216, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .movie-card:hover::before {
+            border-color: transparent var(--cyan-bright) transparent transparent;
+        }
+
+        .poster {
+            width: 100%;
+            aspect-ratio: 2/3;
+            background: linear-gradient(160deg, var(--velvet) 0%, var(--navy-mid) 50%, var(--blue-dim) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poster::after {
+            content: 'SELECT';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 8px 10px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: var(--cyan-bright);
+            text-align: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .movie-card:hover .poster::after {
+            opacity: 1;
+        }
+
+        .card-title {
+            padding: 12px 14px 4px;
+            font-family: var(--font-ui);
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--white);
+            letter-spacing: 0.5px;
+        }
+
+        .card-tag {
+            padding: 0 14px 12px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--cyan);
+            letter-spacing: 1px;
+        }
+
+        /* =============================================
+       MODAL
+    ============================================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 8, 15, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            position: relative;
+            background: var(--navy-card);
+            border: 1px solid rgba(0, 180, 216, 0.3);
+            max-width: 560px;
+            width: 100%;
+            padding: 40px;
+            clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+            animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        /* Top bar */
+        .modal-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue-bright), var(--cyan-bright), var(--velvet-bright));
+        }
+
+        /* Side accent */
+        .modal-box::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--cyan), transparent);
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.92) translateY(16px);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 100% 0, 0 0, 0 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 14px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--white-mute);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--red-alert);
+        }
+
+        .modal-sys {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--cyan);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        .modal-emoji {
+            font-size: 2.8rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            color: var(--white);
+            letter-spacing: 3px;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .modal-meta {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+
+        .modal-rating {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 180, 216, 0.08);
+            border: 1px solid rgba(0, 180, 216, 0.25);
+            padding: 6px 14px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--cyan-bright);
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .modal-synopsis {
+            color: var(--white-dim);
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin-bottom: 20px;
+            border-left: 2px solid rgba(0, 180, 216, 0.2);
+            padding-left: 16px;
+        }
+
+        .modal-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .detail-tag {
+            background: var(--blue-dim);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            padding: 4px 12px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--white-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+        }
+
+        /* =============================================
+       REVIEW FORM
+    ============================================= */
+        .review-form {
+            position: relative;
+            background: var(--navy-card);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            padding: 36px;
+            overflow: hidden;
+        }
+
+        .review-form::before {
+            content: 'REVIEW TERMINAL';
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--cyan);
+            letter-spacing: 3px;
+            opacity: 0.4;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--cyan);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .form-group label::before {
+            content: '> ';
+            opacity: 0.5;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: var(--navy-panel);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-bottom: 2px solid rgba(0, 180, 216, 0.3);
+            padding: 12px 16px;
+            color: var(--white);
+            font-family: var(--font-ui);
+            font-size: 1rem;
+            font-weight: 600;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--cyan);
+            border-bottom-color: var(--cyan-bright);
+            box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.1), var(--glow-cyan);
+            background: rgba(0, 180, 216, 0.04);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .form-group select option {
+            background: var(--navy);
+        }
+
+        /* =============================================
+       BUTTONS
+    ============================================= */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border: none;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .btn-primary {
+            background: var(--cyan);
+            color: var(--navy);
+            font-weight: 700;
+            clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+        }
+
+        .btn-primary:hover {
+            background: var(--cyan-bright);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white-mute);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        /* =============================================
+       SUBMITTED REVIEWS
+    ============================================= */
+        .reviews-list {
+            margin-top: 28px;
+        }
+
+        .review-card {
+            position: relative;
+            background: var(--navy-panel);
+            border: 1px solid rgba(0, 180, 216, 0.12);
+            border-left: 3px solid var(--cyan);
+            padding: 20px 24px;
+            margin-bottom: 14px;
+            animation: fadeUp 0.4s ease;
+            overflow: hidden;
+        }
+
+        .review-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 16px 16px;
+            border-color: transparent transparent rgba(0, 180, 216, 0.2) transparent;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .review-name {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .review-movie {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .review-stars {
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            color: var(--white-dim);
+            font-size: 0.93rem;
+            font-style: italic;
+            margin-bottom: 0;
+            border-left: 2px solid rgba(0, 180, 216, 0.15);
+            padding-left: 12px;
+        }
+
+        /* =============================================
+       SHOW MORE / LESS
+    ============================================= */
+        .collapsible-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .collapsible-content.expanded {
+            max-height: 1200px;
+        }
+
+        /* =============================================
+       BACK TO TOP
+    ============================================= */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--cyan);
+            color: var(--navy);
+            border: none;
+            width: 44px;
+            height: 44px;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 200;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        #back-to-top:hover {
+            background: var(--cyan-bright);
+            box-shadow: var(--glow-cyan);
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* =============================================
+       FOOTER
+    ============================================= */
+        footer {
+            position: relative;
+            background: var(--navy-mid);
+            border-top: 1px solid rgba(0, 180, 216, 0.15);
+            padding: 50px 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: 'MUST WATCH';
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: 8rem;
+            color: rgba(0, 180, 216, 0.03);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            letter-spacing: 10px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        footer p {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--white-mute);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        footer .footer-name {
+            color: var(--cyan-bright);
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            letter-spacing: 4px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* =============================================
+       RESPONSIVE
+    ============================================= */
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+
+            .modal-box {
+                padding: 28px 22px;
+            }
+
+            .review-form {
+                padding: 24px;
+            }
+
+            header h1 {
+                font-size: 4rem;
+            }
+        }
+
+
+
+
+        .review-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn-edit,
+        .btn-delete {
+            background: transparent;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            padding: 4px 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-edit {
+            color: var(--cyan);
+            border-color: rgba(0, 180, 216, 0.3);
+        }
+
+        .btn-edit:hover {
+            background: rgba(0, 180, 216, 0.1);
+            border-color: var(--cyan);
+        }
+
+        .btn-delete {
+            color: var(--red-alert);
+            border-color: rgba(229, 57, 53, 0.3);
+        }
+
+        .btn-delete:hover {
+            background: rgba(229, 57, 53, 0.1);
+            border-color: var(--red-alert);
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header id="top">
+        <!-- Ink splatter decorations -->
+        <svg class="ink-splat ink-splat-left" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="60" cy="200" rx="55" ry="180" fill="#00b4d8" transform="rotate(-15 60 200)" />
+            <ellipse cx="120" cy="150" rx="30" ry="100" fill="#00b4d8" transform="rotate(10 120 150)" />
+            <circle cx="40" cy="80" r="20" fill="#00b4d8" />
+            <circle cx="150" cy="300" r="12" fill="#00b4d8" />
+            <ellipse cx="90" cy="350" rx="15" ry="40" fill="#00b4d8" transform="rotate(-20 90 350)" />
+        </svg>
+        <svg class="ink-splat ink-splat-right" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="60" cy="200" rx="55" ry="180" fill="#6c3fc5" transform="rotate(-15 60 200)" />
+            <ellipse cx="120" cy="150" rx="30" ry="100" fill="#6c3fc5" transform="rotate(10 120 150)" />
+            <circle cx="40" cy="80" r="20" fill="#6c3fc5" />
+            <circle cx="150" cy="300" r="12" fill="#6c3fc5" />
+        </svg>
+
+        <p class="header-eyebrow">// ENTERTAINMENT ARCHIVE — UNIT KCB //</p>
+        <h1>
+            MUST
+            <span class="accent">WATCH<span class="exclaim">!</span></span>
+        </h1>
+        <p class="tagline">
+            <span class="header-slash"></span>
+            Movies &nbsp;·&nbsp; K-Drama &nbsp;·&nbsp; C-Drama &nbsp;·&nbsp; Series
+            <span class="header-slash"></span>
+        </p>
+        <div class="header-clip"></div>
+    </header>
+
+    <!-- ===== BACKGROUND MUSIC ===== -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="p5.m4a" type="audio/mp4" />
+    </audio>
+
+    <!-- ===== NAV ===== -->
+    <nav>
+        <ul>
+            <li><a href="#about"><span class="nav-num">01.</span> About</a></li>
+            <li><a href="#top-picks"><span class="nav-num">02.</span> Top Picks</a></li>
+            <li><a href="#gallery"><span class="nav-num">03.</span> Gallery</a></li>
+            <li><a href="#trivia"><span class="nav-num">04.</span> Trivia</a></li>
+            <li><a href="#reviews"><span class="nav-num">05.</span> Reviews</a></li>
+        </ul>
+    </nav>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+
+        <!-- ===== SECTION: ABOUT ===== -->
+        <section id="about">
+            <div class="section-header">
+                <span class="section-num">// 01</span>
+                <h1 class="section-title">ABOUT <span class="title-accent">THIS SITE</span></h1>
+            </div>
+            <div class="section-rule"><span>Personal Showcase</span></div>
+
+            <article>
+                <h2>WELCOME TO MUST WATCH!</h2>
+                <p>
+                    This is a <strong>personal entertainment showcase</strong> featuring handpicked titles across
+                    movies, <abbr title="Korean Drama">K-Drama</abbr>, <abbr title="Chinese Drama">C-Drama</abbr>,
+                    and long-running series. Every title listed here has been <em>personally watched and loved</em>.
+                    Expect a mix of <mark>samurai action</mark>, heartbreaking romance, space odysseys, and
+                    brilliant medical mysteries.
+                </p>
+                <p>
+                    Whether you're looking for your next binge or just curious what the hype is about —
+                    you're in the right place. <strong>No spoilers. Just good taste.</strong>
+                </p>
+            </article>
+
+            <aside>
+                <h3>📌 Quick Note</h3>
+                <p>
+                    This site covers more than just movies — it includes
+                    <abbr title="Korean Drama">K-Drama</abbr> series, <abbr title="Chinese Drama">C-Drama</abbr>,
+                    and multi-season <abbr title="Television">TV</abbr> shows. All content is based on
+                    <em>personal recommendation</em> and genuine viewing experience.
+                </p>
+            </aside>
+
+            <blockquote>
+                "It's never lupus."
+                <cite>— Dr. Gregory House &nbsp;·&nbsp; HOUSE M.D.</cite>
+            </blockquote>
+
+        </section>
+
+        <hr />
+
+        <!-- ===== SECTION: TOP PICKS ===== -->
+        <section id="top-picks">
+            <div class="section-header">
+                <span class="section-num">// 02</span>
+                <h1 class="section-title">TOP <span class="title-accent">PICKS</span></h1>
+            </div>
+            <div class="section-rule"><span>Ranked by Rewatchability</span></div>
+
+            <h3>MY TOP 5 RANKED</h3>
+            <ol>
+                <li><strong>Interstellar</strong> — A mind-bending journey through space and time</li>
+                <li><strong>Rurouni Kenshin</strong> (Live-Action) — The samurai saga done right</li>
+                <li><strong>Scarlet Heart: Ryeo</strong> — A historical K-Drama that wrecked me emotionally</li>
+                <li><strong>House M.D.</strong> — Seven seasons of medical brilliance and sarcasm</li>
+                <li><strong>Pursuit of Jade</strong> — A beautifully crafted Chinese historical drama</li>
+            </ol>
+
+            <hr />
+
+            <h3>WHY THESE PICKS?</h3>
+            <ul>
+                <li>Each one left a lasting impression long after the credits rolled</li>
+                <li>Strong, complex characters you'll think about for weeks</li>
+                <li>Storytelling that goes beyond typical genre expectations</li>
+                <li>Perfect for both casual viewing and deep binge sessions</li>
+                <li>A healthy mix of genres — action, romance, sci-fi, and drama</li>
+            </ul>
+
+            <hr />
+
+            <h3>GENRE GLOSSARY</h3>
+            <dl>
+                <dt><abbr title="Korean Drama">K-Drama</abbr></dt>
+                <dd>Korean television series known for high production value, emotional depth, and compelling romantic
+                    storylines. Usually 16–20 episodes per season.</dd>
+
+                <dt><abbr title="Chinese Drama">C-Drama</abbr></dt>
+                <dd>Chinese-produced drama series, often set in historical imperial China with elaborate costumes,
+                    political intrigue, and sweeping romance.</dd>
+
+                <dt>Live-Action Adaptation</dt>
+                <dd>A film or series adapting an original <abbr title="Japanese Animation">anime</abbr> or manga into
+                    real-world, live-filmed storytelling — like <strong>Rurouni Kenshin</strong>.</dd>
+
+                <dt>Procedural Drama</dt>
+                <dd>A genre where each episode features a self-contained problem alongside longer character arcs — as
+                    seen in <em>House M.D.</em></dd>
+            </dl>
+
+            <button class="btn btn-secondary" id="show-more-btn" onclick="toggleMore()">
+                ▾ &nbsp; SHOW MORE
+            </button>
+
+            <div class="collapsible-content" id="more-content">
+                <br />
+                <article>
+                    <h2>A LITTLE MORE CONTEXT</h2>
+                    <p>
+                        These titles weren't just entertainment — they were <em>experiences</em>.
+                        <strong>Interstellar</strong> redefined what a science fiction film could feel like emotionally.
+                        <mark>Rurouni Kenshin's live-action trilogy</mark> proved that anime adaptations can be taken
+                        seriously.
+                        <strong>Scarlet Heart: Ryeo</strong> set an impossibly high bar for historical K-Drama.
+                        And <em>House M.D.</em> made medical diagnosis surprisingly addictive.
+                    </p>
+                    <p>
+                        <strong>Pursuit of Jade</strong> is a hidden gem — if you haven't explored
+                        <abbr title="Chinese Drama">C-Drama</abbr> yet, this is a great entry point.
+                    </p>
+                </article>
+            </div>
+
+        </section>
+
+        <hr />
+
+        <!-- ===== SECTION: GALLERY ===== -->
+        <section id="gallery">
+            <div class="section-header">
+                <span class="section-num">// 03</span>
+                <h1 class="section-title">MOVIE <span class="title-accent">GALLERY</span></h1>
+            </div>
+            <div class="section-rule"><span>Click to Reveal Info</span></div>
+
+            <div class="gallery-grid">
+                <div class="movie-card" onclick="openModal('kenshin')">
+                    <div class="poster">⚔️</div>
+                    <div class="card-title">Rurouni Kenshin</div>
+                    <div class="card-tag">Live-Action · Japan</div>
+                </div>
+                <div class="movie-card" onclick="openModal('scarlet')">
+                    <div class="poster">👑</div>
+                    <div class="card-title">Scarlet Heart: Ryeo</div>
+                    <div class="card-tag">K-Drama · Korea</div>
+                </div>
+                <div class="movie-card" onclick="openModal('jade')">
+                    <div class="poster">🏮</div>
+                    <div class="card-title">Pursuit of Jade</div>
+                    <div class="card-tag">C-Drama · China</div>
+                </div>
+                <div class="movie-card" onclick="openModal('house')">
+                    <div class="poster">🏥</div>
+                    <div class="card-title">House M.D.</div>
+                    <div class="card-tag">TV Series · USA</div>
+                </div>
+                <div class="movie-card" onclick="openModal('interstellar')">
+                    <div class="poster">🚀</div>
+                    <div class="card-title">Interstellar</div>
+                    <div class="card-tag">Film · Sci-Fi</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODAL -->
+        <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+
+            <div class="modal-box">
+                <button class="modal-close" onclick="closeModal()">[ CLOSE ]</button>
+
+                <!-- Movie image -->
+                <img id="modal-img" src="" alt="Movie Preview"
+                    style="display:none; width:100%; max-height:220px; object-fit:cover; margin-bottom:20px;" />
+
+                <div class="modal-sys">// TITLE DATABASE — ENTRY LOADED</div>
+                <span class="modal-emoji" id="modal-emoji"></span>
+                <div class="modal-title" id="modal-title"></div>
+                <div class="modal-meta" id="modal-meta"></div>
+                <div class="modal-rating" id="modal-rating"></div>
+                <p class="modal-synopsis" id="modal-synopsis"></p>
+                <div class="modal-details" id="modal-details"></div>
+            </div>
+        </div>
+
+        <hr />
+
+        <!-- ===== SECTION: TRIVIA ===== -->
+        <section id="trivia">
+            <div class="section-header">
+                <span class="section-num">// 04</span>
+                <h1 class="section-title">DID YOU <span class="title-accent">KNOW?</span></h1>
+            </div>
+            <div class="section-rule"><span>Fun Facts</span></div>
+
+            <article>
+                <h2>🚀 INTERSTELLAR</h2>
+                <p>
+                    Director <strong>Christopher Nolan</strong> worked with physicist
+                    <em>Kip Thorne</em> to make the black hole visual in the film
+                    <mark>scientifically accurate</mark>. The rendering took over
+                    <strong>100 hours per frame</strong>. The film's depiction of
+                    <abbr title="Gravitational Time Dilation">time dilation</abbr>
+                    near a black hole is consistent with <em>Einstein's theory of relativity</em>.
+                </p>
+            </article>
+
+            <article>
+                <h2>⚔️ RUROUNI KENSHIN</h2>
+                <p>
+                    The <strong>live-action film series</strong> spans five films released between
+                    <em>2012 and 2021</em>. Actor <strong>Takeru Satoh</strong> underwent
+                    <mark>rigorous sword-fighting training</mark> for months before filming.
+                    The final two films — <em>The Final</em> and <em>The Beginning</em> — were filmed
+                    <strong>simultaneously</strong> and released in the same year.
+                </p>
+            </article>
+
+            <aside>
+                <h3>💡 House M.D. Trivia</h3>
+                <p>
+                    Despite the famous running joke, <strong>the diagnosis actually IS lupus</strong> in one episode —
+                    Season 4, Episode 8. The writers finally gave fans what they'd been waiting for
+                    after seasons of <em>misdirection</em>.
+                </p>
+            </aside>
+
+        </section>
+
+        <hr />
+
+        <!-- ===== SECTION: REVIEWS ===== -->
+        <section id="reviews">
+            <div class="section-header">
+                <span class="section-num">// 05</span>
+                <h1 class="section-title">SUBMIT A <span class="title-accent">REVIEW</span></h1>
+            </div>
+            <div class="section-rule"><span>Your Thoughts Matter</span></div>
+
+            <div class="review-form">
+                <div class="form-group">
+                    <label for="reviewer-name">Your Name</label>
+                    <input type="text" id="reviewer-name" placeholder="e.g. Krystal Camille" />
+                </div>
+                <div class="form-group">
+                    <label for="movie-title">Movie / Series Title</label>
+                    <select id="movie-title">
+                        <option value="">— Select a title —</option>
+                        <option value="Rurouni Kenshin">Rurouni Kenshin (Live-Action)</option>
+                        <option value="Scarlet Heart: Ryeo">Scarlet Heart: Ryeo</option>
+                        <option value="Pursuit of Jade">Pursuit of Jade</option>
+                        <option value="House M.D.">House M.D.</option>
+                        <option value="Interstellar">Interstellar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <select id="rating">
+                        <option value="">— Select rating —</option>
+                        <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐ — Masterpiece</option>
+                        <option value="⭐⭐⭐⭐">⭐⭐⭐⭐ — Really Good</option>
+                        <option value="⭐⭐⭐">⭐⭐⭐ — It's Okay</option>
+                        <option value="⭐⭐">⭐⭐ — Disappointing</option>
+                        <option value="⭐">⭐ — Not For Me</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="review-text">Your Review</label>
+                    <textarea id="review-text"
+                        placeholder="Share your thoughts, feelings, favourite moments..."></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="submitReview()">Submit Review</button>
+                <button class="btn btn-secondary" onclick="clearForm()">Clear</button>
+            </div>
+
+            <div class="reviews-list" id="reviews-list"></div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <span class="footer-name">KRYSTAL CAMILLE BESANA</span>
+        <p>🎬 MUST WATCH! — PERSONAL ENTERTAINMENT ARCHIVE</p>
+        <p style="margin-top: 10px; opacity: 0.5;">BUILT WITH HTML · CSS · JAVASCRIPT &nbsp;|&nbsp; ACTIVITY 10
+            &nbsp;|&nbsp; 2025</p>
+    </footer>
+
+    <!-- ===== BACK TO TOP ===== -->
+    <button id="back-to-top" onclick="scrollToTop()" title="Back to Top">↑</button>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+
+
+        // =============================================
+        // BACKGROUND MUSIC — AUTOPLAY ON FIRST CLICK
+        // =============================================
+        const bgMusic = document.getElementById('bg-music');
+        bgMusic.volume = 0.4; // 40% volume, adjust as needed
+
+        document.addEventListener('click', function startMusic() {
+            bgMusic.play();
+            document.removeEventListener('click', startMusic);
+        }, { once: true });
+
+
+        // =============================================
+        // MOVIE DATA
+        // =============================================
+        const movies = {
+            kenshin: {
+                image: 'roni.jpg',
+                emoji: '⚔️',
+                title: 'RUROUNI KENSHIN',
+                meta: 'Live-Action · Japan · 2012–2021',
+                rating: '⭐⭐⭐⭐⭐ — 9.5 / 10',
+                synopsis: 'Based on the beloved manga and anime, Rurouni Kenshin follows Himura Kenshin — a legendary assassin turned wandering swordsman who has vowed never to kill again. The live-action series brings iconic characters to life with stunning choreography, emotional depth, and faithful storytelling across five films.',
+                details: ['Action', 'Samurai', 'Live-Action', 'Japan', '5 Films', 'Takeru Satoh']
+            },
+            scarlet: {
+                image: 'scarlet.jpg',
+                emoji: '👑',
+                title: 'SCARLET HEART: RYEO',
+                meta: 'K-Drama · SBS · Korea · 2016',
+                rating: '⭐⭐⭐⭐⭐ — 9.2 / 10',
+                synopsis: 'A modern woman is transported back to the Goryeo Dynasty, entangled in palace politics and a heartbreaking love story involving the royal princes. Known for stunning visuals, emotional performances, and an ending that still haunts viewers years later.',
+                details: ['K-Drama', 'Historical', 'Romance', 'Time Travel', '20 Episodes', 'Lee Joon-gi']
+            },
+            jade: {
+                image: 'jade.jpg',
+                emoji: '🏮',
+                title: 'PURSUIT OF JADE',
+                meta: 'C-Drama · China',
+                rating: '⭐⭐⭐⭐ — 8.7 / 10',
+                synopsis: 'A beautifully crafted Chinese historical drama set in imperial China, following a story of identity, power, and romance against a backdrop of intricate court politics. Rich in costume detail and atmospheric storytelling.',
+                details: ['C-Drama', 'Historical', 'Romance', 'Imperial China', 'Period Drama']
+            },
+            house: {
+                image: 'house.webp',
+                emoji: '🏥',
+                title: 'HOUSE M.D.',
+                meta: 'TV Series · Fox · USA · 2004–2012',
+                rating: '⭐⭐⭐⭐⭐ — 9.0 / 10',
+                synopsis: 'Dr. Gregory House is a brilliant but misanthropic diagnostician at Princeton-Plainsboro Teaching Hospital. Armed with a cane, a Vicodin habit, and zero bedside manner, House and his team tackle seemingly impossible medical cases — each a puzzle wrapped in sharp wit and human drama.',
+                details: ['Medical Drama', 'USA', '8 Seasons', '177 Episodes', 'Hugh Laurie', 'Fox Network']
+            },
+            interstellar: {
+                image: 'star.jpg',
+                emoji: '🚀',
+                title: 'INTERSTELLAR',
+                meta: 'Film · Christopher Nolan · 2014',
+                rating: '⭐⭐⭐⭐⭐ — 10 / 10',
+                synopsis: "With Earth's future at stake, a former NASA pilot leads a team through a wormhole near Saturn in search of a new home for humanity. An emotionally devastating, visually breathtaking exploration of love, time, and sacrifice across the fabric of space-time itself.",
+                details: ['Sci-Fi', 'Space', 'Christopher Nolan', '2014', 'Matthew McConaughey', 'Oscar Winner']
+            }
+        };
+
+        // =============================================
+        // MODAL
+        // =============================================
+        function openModal(id) {
+            const m = movies[id];
+            if (!m) return;
+
+            // Image
+            const modalImg = document.getElementById('modal-img');
+            if (m.image) {
+                modalImg.src = m.image;
+                modalImg.style.display = 'block';
+            } else {
+                modalImg.style.display = 'none';
+            }
+
+            document.getElementById('modal-emoji').textContent = m.emoji;
+            document.getElementById('modal-title').textContent = m.title;
+            document.getElementById('modal-meta').textContent = m.meta;
+            document.getElementById('modal-rating').textContent = m.rating;
+            document.getElementById('modal-synopsis').textContent = m.synopsis;
+            document.getElementById('modal-details').innerHTML = m.details.map(d => `<span class="detail-tag">${d}</span>`).join('');
+            document.getElementById('modal-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeModalOutside(e) {
+            if (e.target.id === 'modal-overlay') closeModal();
+        }
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+        // =============================================
+        // SHOW MORE / LESS
+        // =============================================
+        let expanded = false;
+
+        function toggleMore() {
+            expanded = !expanded;
+            document.getElementById('more-content').classList.toggle('expanded', expanded);
+            document.getElementById('show-more-btn').textContent = expanded ? '▴  SHOW LESS' : '▾ \u00A0 SHOW MORE';
+        }
+
+        // =============================================
+        // REVIEW FORM
+        // =============================================
+        let editingCard = null; // tracks which card is being edited
+
+        function submitReview() {
+            const name = document.getElementById('reviewer-name').value.trim();
+            const movie = document.getElementById('movie-title').value;
+            const rating = document.getElementById('rating').value;
+            const text = document.getElementById('review-text').value.trim();
+
+            if (!name || !movie || !rating || !text) {
+                alert('Please fill in all fields before submitting!');
+                return;
+            }
+
+            if (editingCard) {
+                // UPDATE existing card
+                editingCard.querySelector('.review-name').textContent = name;
+                editingCard.querySelector('.review-movie').textContent = movie;
+                editingCard.querySelector('.review-stars').textContent = rating;
+                editingCard.querySelector('.review-text').textContent = '"' + text + '"';
+                editingCard.dataset.reviewText = text;
+                editingCard = null;
+                document.querySelector('.btn-primary').textContent = 'SUBMIT REVIEW';
+            } else {
+                // CREATE new card
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                card.dataset.reviewText = text;
+                card.innerHTML = `
+      <div class="review-header">
+        <span class="review-name">${escapeHTML(name)}</span>
+        <span class="review-movie">${escapeHTML(movie)}</span>
+        <span class="review-stars">${rating}</span>
+      </div>
+      <p class="review-text">"${escapeHTML(text)}"</p>
+      <div class="review-actions">
+        <button class="btn-edit" onclick="editReview(this)">✎ EDIT</button>
+        <button class="btn-delete" onclick="deleteReview(this)">✕ DELETE</button>
+      </div>
+    `;
+                document.getElementById('reviews-list').prepend(card);
+            }
+
+            clearForm();
+        }
+
+        function editReview(btn) {
+            const card = btn.closest('.review-card');
+            editingCard = card;
+
+            // Pre-fill the form with existing review data
+            document.getElementById('reviewer-name').value = card.querySelector('.review-name').textContent;
+            document.getElementById('movie-title').value = card.querySelector('.review-movie').textContent;
+            document.getElementById('rating').value = card.querySelector('.review-stars').textContent;
+            document.getElementById('review-text').value = card.dataset.reviewText;
+
+            // Change button label and scroll to form
+            document.querySelector('.btn-primary').textContent = 'UPDATE REVIEW';
+            document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function deleteReview(btn) {
+            const card = btn.closest('.review-card');
+            if (confirm('Delete this review?')) {
+                card.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => card.remove(), 300);
+                // Reset edit state if deleting the card being edited
+                if (editingCard === card) {
+                    editingCard = null;
+                    document.querySelector('.btn-primary').textContent = 'SUBMIT REVIEW';
+                    clearForm();
+                }
+            }
+        }
+
+        function clearForm() {
+            ['reviewer-name', 'movie-title', 'rating', 'review-text'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // =============================================
+        // BACK TO TOP
+        // =============================================
+        window.addEventListener('scroll', () => {
+            document.getElementById('back-to-top').classList.toggle('visible', window.scrollY > 300);
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+    </script>
+
+</body>
+
+</html>
