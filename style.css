@@ -760,16 +760,85 @@ dd {
 /* =============================================
    MODAL
 ============================================= */
+
+.modal-section-label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 22px 0 10px;
+    opacity: 0.6;
+}
+
+.modal-cast {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.cast-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 0.88rem;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0, 180, 216, 0.07);
+}
+
+.cast-actor {
+    font-family: var(--font-ui);
+    font-weight: 700;
+    color: var(--white);
+    min-width: 160px;
+}
+
+.cast-divider {
+    color: var(--white-mute);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+}
+
+.cast-character {
+    font-family: var(--font-ui);
+    font-style: italic;
+    color: var(--cyan);
+    font-size: 0.88rem;
+}
+
+.modal-verdict {
+    font-family: var(--font-ui);
+    font-size: 0.92rem;
+    color: var(--white-dim);
+    line-height: 1.7;
+    font-style: italic;
+    border-left: 2px solid var(--velvet-bright);
+    padding-left: 14px;
+    margin-bottom: 4px;
+}
+
+
+
 .modal-overlay {
-    display: none;
     position: fixed;
     inset: 0;
     background: rgba(4, 8, 15, 0.88);
     backdrop-filter: blur(10px);
     z-index: 1000;
-    align-items: center;
+
+    display: none;
+
     justify-content: center;
-    padding: 20px;
+    
+    align-items: center;
+    overflow: hidden;
+
+    /*align-items: flex-start;
+
+    overflow-y: auto;*/
+
+    padding: 40px 20px;
 }
 
 .modal-overlay.active { display: flex; }
@@ -778,12 +847,36 @@ dd {
     position: relative;
     background: var(--navy-card);
     border: 1px solid rgba(0, 180, 216, 0.25);
+
     max-width: 580px;
     width: 100%;
-    overflow: hidden;
+
+    max-height: calc(100vh - 80px);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
     border-radius: 3px;
+
     animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    scroll-behavior: smooth;
+
 }
+
+.modal-box::-webkit-scrollbar {
+    width: 4px;
+}
+
+.modal-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-box::-webkit-scrollbar-thumb {
+    background: rgba(0, 229, 255, 0.35);
+}
+
+
 
 .modal-box::before {
     content: '';
@@ -812,26 +905,37 @@ dd {
 
 .modal-close {
     position: absolute;
-    top: 12px; right: 16px;
-    background: rgba(4,8,15,0.7);
+    top: 14px;
+    right: 14px;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(4, 8, 15, 0.82);
     border: 1px solid rgba(255,255,255,0.15);
+
     color: var(--white);
     font-size: 1rem;
-    width: 32px; height: 32px;
+    line-height: 1;
+
     border-radius: 50%;
     cursor: pointer;
+
     transition: var(--transition);
-    z-index: 10;
-    display: flex; align-items: center; justify-content: center;
-    line-height: 1;
+    z-index: 20;
+
+    backdrop-filter: blur(10px);
 }
 
-.modal-close:hover { background: var(--red-alert); border-color: var(--red-alert); }
-
-.modal-sys { font-family: var(--font-mono); font-size: 0.58rem; color: var(--cyan); letter-spacing: 3px; margin-bottom: 12px; opacity: 0.6; }
-.modal-title { font-family: var(--font-display); font-size: 2.4rem; color: var(--white); letter-spacing: 3px; line-height: 1; margin-bottom: 6px; }
-.modal-meta  { font-family: var(--font-mono); font-size: 0.65rem; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; opacity: 0.75; }
-
+.modal-close:hover {
+    background: var(--red-alert);
+    border-color: var(--red-alert);
+    transform: rotate(90deg);
+}
 .modal-rating {
     display: inline-flex;
     align-items: center;
@@ -1172,4 +1276,202 @@ footer::before {
     .modal-body { padding: 20px 22px 28px; }
     .review-form { padding: 24px; }
     .hero-scroll-hint { display: none; }
+}
+
+
+
+
+
+/* =============================================
+   SCROLL FADE-IN
+============================================= */
+.fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =============================================
+   ABOUT — STATS + MOOD BOARD
+============================================= */
+.about-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 140px;
+    background: var(--navy-card);
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--velvet-bright));
+}
+
+.stat-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top, rgba(0, 180, 216, 0.06), transparent 70%);
+    pointer-events: none;
+}
+
+.stat-number {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    color: var(--cyan-bright);
+    line-height: 1;
+    letter-spacing: 4px;
+    text-shadow: var(--glow-cyan);
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--white-mute);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* MOOD BOARD */
+.mood-board {
+    background: var(--navy-card);
+    border: 1px solid rgba(0, 180, 216, 0.15);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.mood-board::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--velvet-bright), var(--cyan), transparent);
+}
+
+.mood-heading {
+    margin-bottom: 18px;
+}
+
+.mood-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.mood-tag {
+    background: transparent;
+    border: 1px solid rgba(0, 180, 216, 0.25);
+    color: var(--white-dim);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: var(--transition);
+    clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+.mood-tag:hover {
+    border-color: var(--cyan);
+    color: var(--cyan-bright);
+    background: rgba(0, 180, 216, 0.06);
+}
+
+.mood-tag.active {
+    background: var(--cyan);
+    color: var(--navy);
+    border-color: var(--cyan);
+    font-weight: 700;
+    box-shadow: var(--glow-cyan);
+}
+
+.mood-result {
+    min-height: 80px;
+    border-left: 2px solid rgba(0, 180, 216, 0.2);
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.mood-placeholder {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--white-mute);
+    letter-spacing: 2px;
+    opacity: 0.6;
+}
+
+.mood-result-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+}
+
+.mood-result-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.mood-result-line {
+    font-family: var(--font-ui);
+    font-size: 0.92rem;
+    color: var(--white-dim);
+    line-height: 1.6;
+}
+
+.mood-result-cta {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--cyan-bright);
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.mood-result-cta:hover {
+    color: var(--white);
+}
+
+.mood-result.pop {
+    animation: moodPop 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes moodPop {
+    0%   { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
 }

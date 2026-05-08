@@ -62,7 +62,7 @@
             <div class="hero-actions">
                 <button class="btn-hero-primary" onclick="openTrailer(currentHeroId)">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    Watch Info
+                    Watch Trailer
                 </button>
                 <button class="btn-hero-secondary" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
                     Browse All
@@ -92,111 +92,77 @@
     <!-- ===== MAIN ===== -->
     <main>
 
+
         <!-- ===== SECTION: ABOUT ===== -->
-        <section id="about">
-            <div class="section-header">
-                <span class="section-num">// 01</span>
-                <h2 class="section-title">ABOUT <span class="title-accent">THIS SITE</span></h2>
-            </div>
-            <div class="section-rule"><span>Personal Showcase</span></div>
+<section id="about">
+    <div class="section-header">
+        <span class="section-num">// 01</span>
+        <h2 class="section-title">ABOUT <span class="title-accent">THIS SITE</span></h2>
+    </div>
+    <div class="section-rule"><span>Personal Showcase</span></div>
 
-            <article>
-                <h3>WELCOME TO MUST WATCH!</h3>
-                <p>
-                    This is a <strong>personal entertainment showcase</strong> featuring handpicked titles across
-                    movies, <abbr title="Korean Drama">K-Drama</abbr>, <abbr title="Chinese Drama">C-Drama</abbr>,
-                    and long-running series. Every title listed here has been <em>personally watched and loved</em>.
-                    Expect a mix of <mark>samurai action</mark>, heartbreaking romance, space odysseys, and
-                    brilliant medical mysteries.
-                </p>
-                <p>
-                    Whether you're looking for your next binge or just curious what the hype is about —
-                    you're in the right place. <strong>No spoilers. Just good taste.</strong>
-                </p>
-            </article>
+    <!-- STAT COUNTERS -->
+    <div class="about-stats">
+        <div class="stat-card">
+            <div class="stat-number" data-target="5">0</div>
+            <div class="stat-label">Handpicked Titles</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" data-target="1">0</div>
+            <div class="stat-label">Obsessed Viewer</div>
+        </div>
+    </div>
 
-            <aside>
-                <h4>📌 Quick Note</h4>
-                <p>
-                    This site covers more than just movies — it includes
-                    <abbr title="Korean Drama">K-Drama</abbr> series, <abbr title="Chinese Drama">C-Drama</abbr>,
-                    and multi-season <abbr title="Television">TV</abbr> shows. All content is based on
-                    <em>personal recommendation</em> and genuine viewing experience.
-                </p>
-            </aside>
+    <!-- MAIN BLURB -->
+    <article>
+        <h3>WELCOME TO MUST WATCH!</h3>
+        <p>
+            This is a <strong>personal entertainment showcase</strong> featuring handpicked titles across
+            movies, <abbr title="Korean Drama">K-Drama</abbr>, <abbr title="Chinese Drama">C-Drama</abbr>,
+            and long-running series. Every title listed here has been <em>personally watched and loved</em>.
+            Expect a mix of <mark>samurai action</mark>, heartbreaking romance, space odysseys, and
+            brilliant medical mysteries.
+        </p>
+        <p>
+            Whether you're looking for your next binge or just curious what the hype is about —
+            you're in the right place. <strong>No spoilers. Just good taste.</strong>
+        </p>
+    </article>
 
-            <blockquote>
-                "It's never lupus."
-                <cite>— Dr. Gregory House &nbsp;·&nbsp; HOUSE M.D.</cite>
-            </blockquote>
-        </section>
+    <!-- MOOD BOARD -->
+    <div class="mood-board">
+        <div class="mood-heading">
+            <span class="section-num">// BROWSE BY MOOD</span>
+        </div>
+        <div class="mood-tags">
+            <button class="mood-tag" data-genre="Action">⚔️ Action</button>
+            <button class="mood-tag" data-genre="Romance">💘 Romance</button>
+            <button class="mood-tag" data-genre="Sci-Fi">🚀 Sci-Fi</button>
+            <button class="mood-tag" data-genre="Historical">🏯 Historical</button>
+            <button class="mood-tag" data-genre="Medical">🏥 Medical</button>
+            <button class="mood-tag" data-genre="Samurai">🗡️ Samurai</button>
+            <button class="mood-tag" data-genre="Space">🌌 Space</button>
+        </div>
+        <div class="mood-result" id="mood-result">
+            <span class="mood-placeholder">← Pick a mood to find your next watch</span>
+        </div>
+    </div>
 
-        <hr />
+    <aside>
+        <h4>📌 Quick Note</h4>
+        <p>
+            This site covers more than just movies — it includes
+            <abbr title="Korean Drama">K-Drama</abbr> series, <abbr title="Chinese Drama">C-Drama</abbr>,
+            and multi-season <abbr title="Television">TV</abbr> shows. All content is based on
+            <em>personal recommendation</em> and genuine viewing experience.
+        </p>
+    </aside>
 
-        <!-- ===== SECTION: TOP PICKS ===== -->
-        <section id="top-picks">
-            <div class="section-header">
-                <span class="section-num">// 02</span>
-                <h2 class="section-title">TOP <span class="title-accent">PICKS</span></h2>
-            </div>
-            <div class="section-rule"><span>Ranked by Rewatchability</span></div>
-
-            <h3>MY TOP 5 RANKED</h3>
-            <ol>
-                <li><strong>Interstellar</strong> — A mind-bending journey through space and time</li>
-                <li><strong>Rurouni Kenshin</strong> (Live-Action) — The samurai saga done right</li>
-                <li><strong>Scarlet Heart: Ryeo</strong> — A historical K-Drama that wrecked me emotionally</li>
-                <li><strong>House M.D.</strong> — Seven seasons of medical brilliance and sarcasm</li>
-                <li><strong>Pursuit of Jade</strong> — A beautifully crafted Chinese historical drama</li>
-            </ol>
-
-            <hr />
-
-            <h3>WHY THESE PICKS?</h3>
-            <ul>
-                <li>Each one left a lasting impression long after the credits rolled</li>
-                <li>Strong, complex characters you'll think about for weeks</li>
-                <li>Storytelling that goes beyond typical genre expectations</li>
-                <li>Perfect for both casual viewing and deep binge sessions</li>
-                <li>A healthy mix of genres — action, romance, sci-fi, and drama</li>
-            </ul>
-
-            <hr />
-
-            <h3>GENRE GLOSSARY</h3>
-            <dl>
-                <dt><abbr title="Korean Drama">K-Drama</abbr></dt>
-                <dd>Korean television series known for high production value, emotional depth, and compelling romantic storylines. Usually 16–20 episodes per season.</dd>
-                <dt><abbr title="Chinese Drama">C-Drama</abbr></dt>
-                <dd>Chinese-produced drama series, often set in historical imperial China with elaborate costumes, political intrigue, and sweeping romance.</dd>
-                <dt>Live-Action Adaptation</dt>
-                <dd>A film or series adapting an original <abbr title="Japanese Animation">anime</abbr> or manga into real-world, live-filmed storytelling — like <strong>Rurouni Kenshin</strong>.</dd>
-                <dt>Procedural Drama</dt>
-                <dd>A genre where each episode features a self-contained problem alongside longer character arcs — as seen in <em>House M.D.</em></dd>
-            </dl>
-
-            <button class="btn btn-secondary" id="show-more-btn" onclick="toggleMore()">
-                ▾ &nbsp; SHOW MORE
-            </button>
-
-            <div class="collapsible-content" id="more-content">
-                <br />
-                <article>
-                    <h3>A LITTLE MORE CONTEXT</h3>
-                    <p>
-                        These titles weren't just entertainment — they were <em>experiences</em>.
-                        <strong>Interstellar</strong> redefined what a science fiction film could feel like emotionally.
-                        <mark>Rurouni Kenshin's live-action trilogy</mark> proved that anime adaptations can be taken seriously.
-                        <strong>Scarlet Heart: Ryeo</strong> set an impossibly high bar for historical K-Drama.
-                        And <em>House M.D.</em> made medical diagnosis surprisingly addictive.
-                    </p>
-                    <p>
-                        <strong>Pursuit of Jade</strong> is a hidden gem — if you haven't explored
-                        <abbr title="Chinese Drama">C-Drama</abbr> yet, this is a great entry point.
-                    </p>
-                </article>
-            </div>
-        </section>
+    <blockquote>
+        "It's never lupus."
+        <cite>— Dr. Gregory House &nbsp;·&nbsp; HOUSE M.D.</cite>
+    </blockquote>
+</section>
 
         <hr />
 
@@ -267,21 +233,40 @@
             </div>
         </section>
 
-        <!-- MODAL -->
-        <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
-            <div class="modal-box">
-                <button class="modal-close" onclick="closeModal()">✕</button>
-                <img id="modal-img" src="" alt="Movie Preview" style="display:none;" />
-                <div class="modal-body">
-                    <div class="modal-sys">// TITLE DATABASE — ENTRY LOADED</div>
-                    <div class="modal-title" id="modal-title"></div>
-                    <div class="modal-meta" id="modal-meta"></div>
-                    <div class="modal-rating" id="modal-rating"></div>
-                    <p class="modal-synopsis" id="modal-synopsis"></p>
-                    <div class="modal-details" id="modal-details"></div>
-                </div>
-            </div>
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()"> X </button>
+
+        <img id="modal-img" src="" alt="Movie Preview" />
+
+        <div class="modal-body">
+
+            <div class="modal-sys">// TITLE DATABASE — ENTRY LOADED</div>
+
+            <div class="modal-title" id="modal-title"></div>
+
+            <div class="modal-meta" id="modal-meta"></div>
+
+            <div class="modal-rating" id="modal-rating"></div>
+
+            <p class="modal-synopsis" id="modal-synopsis"></p>
+
+            <div class="modal-section-label">// MAIN CAST</div>
+
+            <div class="modal-cast" id="modal-cast"></div>
+
+            <div class="modal-section-label">// CURATOR'S NOTE</div>
+
+            <div class="modal-verdict" id="modal-verdict"></div>
+
+            <div class="modal-section-label">// TAGS</div>
+
+            <div class="modal-details" id="modal-details"></div>
+
         </div>
+    </div>
+</div>
 
         <hr />
 
